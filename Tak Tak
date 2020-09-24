@@ -1,0 +1,124 @@
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+
+import 'package:flutter/material.dart';
+
+class TakTak extends StatefulWidget {
+  @override
+  _TakTakState createState() => _TakTakState();
+}
+
+class _TakTakState extends State<TakTak> {
+  // ignore: unused_field
+  int _page = 0;
+
+  GlobalKey _bottomNavigationKey = GlobalKey();
+
+  @override
+  Widget build(BuildContext context) {
+    var textStyle2 = TextStyle(
+            color: Colors.white, fontSize: 17.0, fontWeight: FontWeight.bold),
+        textStyle = TextStyle(
+            color: Colors.white, fontSize: 17.0, fontWeight: FontWeight.bold);
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Tak Tak"),
+        backgroundColor: Colors.deepPurple,
+      ),
+      body: Container(
+        alignment: AlignmentDirectional(1.0, 1.0),
+        height: 20.0,
+        color: Colors.black,
+        child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                  alignment: Alignment.topCenter,
+                  height: 20.0,
+                  child: RaisedButton(
+                    color: Colors.black,
+                    child: Text(
+                      'Following',
+                      style: textStyle,
+                    ),
+                    onPressed: () {},
+                  )),
+              Container(
+                height: 1.0,
+                alignment: Alignment.topCenter,
+                margin: EdgeInsets.all(1.0),
+              ),
+              Container(
+                  alignment: Alignment.topCenter,
+                  height: 20.0,
+                  child: RaisedButton(
+                    color: Colors.black,
+                    child: Text('For you', style: textStyle2),
+                    onPressed: () {},
+                  )),
+            ]),
+      ),
+      bottomSheet: VideoDescription(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
+      bottomNavigationBar: CurvedNavigationBar(
+          key: _bottomNavigationKey,
+          index: 0,
+          height: 50.0,
+          items: <Widget>[
+            Icon(
+              Icons.home,
+              size: 30,
+            ),
+            Icon(
+              Icons.search,
+              size: 30,
+            ),
+            Icon(
+              Icons.add,
+              size: 30,
+            ),
+            Icon(
+              Icons.notifications,
+              size: 30,
+            ),
+            Icon(
+              Icons.perm_identity,
+              size: 30,
+            ),
+          ],
+          color: Colors.deepPurple,
+          buttonBackgroundColor: Colors.white,
+          backgroundColor: Colors.white,
+          animationCurve: Curves.easeInOut,
+          animationDuration: Duration(milliseconds: 600),
+          onTap: (index) {
+            setState(() {
+              _page = index;
+            });
+          }),
+    );
+  }
+}
+
+class VideoDescription extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              '@firstjonny',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            Text('Video title and some other stuff'),
+            Row(children: [
+              Icon(Icons.music_note, size: 15.0),
+              Text('Artist name - Album name - song',
+                  style: TextStyle(fontSize: 12.0))
+            ]),
+          ]),
+    );
+  }
+}
