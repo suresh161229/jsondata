@@ -1,0 +1,80 @@
+import 'package:flutter/material.dart';
+
+import 'package:hello_world/screens/Register_page.dart';
+
+class MyFirstpage extends StatefulWidget {
+  @override
+  _MyFirstpageState createState() => _MyFirstpageState();
+}
+
+class _MyFirstpageState extends State<MyFirstpage> {
+  TextEditingController textEditingController = TextEditingController();
+  TextEditingController textEditingController2 = TextEditingController();
+
+  get navigation => RegisterPage();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Login Page"),
+      ),
+      body: Column(
+        children: [
+          Column(
+            children: [
+              Container(
+                margin: EdgeInsets.all(16),
+                child: TextField(
+                  controller: textEditingController,
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: InputDecoration(
+                    labelText: "Email",
+                    hintText: "Enter Email",
+                    suffix: Icon(Icons.mail),
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.all(16),
+                child: TextField(
+                  controller: textEditingController2,
+                  autofocus: false,
+                  obscuringCharacter: '*',
+                  obscureText: true,
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: InputDecoration(
+                    labelText: "Password",
+                    hintText: "Enter Password",
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+              ),
+              RaisedButton(
+                onPressed: () {
+                  print('' + textEditingController.text);
+                  print('' + textEditingController2.text);
+                },
+                child: Text("Login"),
+                color: Colors.green,
+                textColor: Colors.white,
+              ),
+              FlatButton(
+                  onPressed: null, child: Text("Not Having An Account???")),
+              RaisedButton(
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => RegisterPage()));
+                },
+                child: Text("Create Account"),
+                color: Colors.redAccent,
+                textColor: Colors.white,
+              )
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
