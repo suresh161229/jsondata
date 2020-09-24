@@ -1,0 +1,96 @@
+import 'package:flutter/material.dart';
+
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'dart:async';
+//we are not using http full dart programme but using only the key word http//
+
+class MyData extends StatefulWidget {
+  @override
+  _MyDataState createState() => _MyDataState();
+}
+
+class _MyDataState extends State<MyData> {
+  Future<List<User>> _getUsers() async {
+    var data = await http
+        .get("http://www.json-generator.com/api/json/get/cemIsSrhRu?indent=2");
+    print(toString());
+
+    var jsonData = json.decode(data.body);
+
+    List<User> users = [];
+
+    for (var u in jsonData) {
+      User user = User(u["picture"], u["about"], u["name"], u["gender"],
+          u["age"], u["phone"], u["address"], u["email"]);
+
+      users.add(user);
+    }
+    print(users.length);
+    return users;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Users Data'),
+      ),
+      body: FutureBuilder(
+          future: _getUsers(),
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            print(snapshot.data);
+            if (snapshot.data == null) {
+              return Container(
+                child: Center(
+                  child: Text('Loading...'),
+                ),
+              );
+            } else {
+              return ListView.builder(
+                  itemCount: snapshot.data.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return ListTile(
+                      title: Text(snapshot.data[index].name),
+                      subtitle: Text(snapshot.data[index].email),
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    DataPage(snapshot.data[index])));
+                      },
+                    );
+                  });
+            }
+          }),
+    );
+  }
+}
+
+class User {
+  final String picture;
+  final String about;
+  final String name;
+  final String gender;
+  final int age;
+  final String phone;
+  final String address;
+  final String email;
+
+  User(this.picture, this.about, this.name, this.gender, this.age, this.phone,
+      this.address, this.email);
+}
+
+class DataPage extends StatelessWidget {
+  final User user;
+  DataPage(this.user);
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(user.name),
+      ),
+    );
+  }
+}
