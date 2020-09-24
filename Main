@@ -1,0 +1,20 @@
+import 'package:flutter/material.dart';
+import 'package:hello_world/jsondata/jsondata.dart';
+
+void main() => runApp(new MyApp());
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: "My App",
+      color: Colors.green,
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primarySwatch: Colors.green,
+        brightness: Brightness.light,
+      ),
+      home: MyData(),
+    );
+  }
+}
