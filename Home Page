@@ -1,0 +1,61 @@
+import 'package:flutter/material.dart';
+
+class _HomePage2 extends StatefulWidget {
+  _HomePage2(int page);
+
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<_HomePage2> {
+  int _currentPosition = 0;
+  var list = [
+    Center(
+      child: Text('Chats'),
+    ),
+    Center(
+      child: Text('Groups'),
+    ),
+    Center(
+      child: Text('Camera'),
+    ),
+    Center(
+      child: Text('Calls'),
+    ),
+    Center(
+      child: Text('Settings'),
+    ),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: Text("Home Page"),
+        ),
+        body: list[_currentPosition],
+        bottomNavigationBar: BottomNavigationBar(
+          type: BottomNavigationBarType.shifting,
+          selectedItemColor: Colors.red,
+          unselectedItemColor: Colors.black,
+          currentIndex: _currentPosition,
+          items: [
+            BottomNavigationBarItem(
+                icon: Icon(Icons.chat), title: Text('Chats')),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.group), title: Text('Groups')),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.camera), title: Text('Camera')),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.call), title: Text('Calls')),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.settings), title: Text('Settings')),
+          ],
+          onTap: (index) {
+            setState(() {
+              _currentPosition = index;
+            });
+          },
+        ));
+  }
+}
