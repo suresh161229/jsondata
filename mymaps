@@ -1,0 +1,54 @@
+import 'dart:collection';
+
+import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+
+class Gmap extends StatefulWidget {
+  @override
+  _GmapState createState() => _GmapState();
+}
+
+class _GmapState extends State<Gmap> {
+  final Set<Marker> _markers = HashSet<Marker>();
+
+  void _onMapCreated(GoogleMapController controller) {
+    controller = controller;
+    setState(() {
+      _markers.add(
+        Marker(
+          markerId: MarkerId('0'),
+          position: const LatLng(40.7143528, -74.0059731),
+          infoWindow: const InfoWindow(
+            title: 'India',
+            snippet: 'A beautiful Country',
+          ),
+        ),
+      );
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          'Map',
+          textAlign: TextAlign.center,
+          style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+        ),
+      ),
+      body: Stack(
+        children: <Widget>[
+          GoogleMap(
+            initialCameraPosition: const CameraPosition(
+              target: LatLng(40.7143528, -74.0059731),
+              zoom: 12.0,
+            ),
+            onMapCreated: _onMapCreated,
+            markers: _markers,
+          )
+        ],
+      ),
+    );
+  }
+}
